@@ -116,17 +116,21 @@ Intrustion-Detection-System/
 │   ├── database.py          # SQLite schema, CRUD, settings management
 │   ├── detector.py          # Background threads: process scanner + webcam AI
 │   ├── main.py              # FastAPI app, REST endpoints, WebSocket router
-│   └── requirements.txt     # Python dependencies
+│   └── requirements.txt     # Python dependencies (backend-specific)
 ├── frontend/
-│   ├── public/              # Static assets
+│   ├── public/              # Static assets (favicon.svg)
 │   ├── src/
 │   │   ├── App.jsx          # Main dashboard UI component
+│   │   ├── App.css          # Dashboard component styles
 │   │   ├── index.css        # Tailwind + custom glassmorphism styles
 │   │   └── main.jsx         # React entry point
-│   ├── index.html           # HTML shell
+│   ├── index.html           # HTML shell with SEO metadata
 │   ├── package.json         # Node dependencies
 │   └── vite.config.js       # Vite + Tailwind v4 plugin config
 ├── .venv/                   # Python virtual environment (local, gitignored)
+├── requirements.txt         # Root Python dependencies (install from here)
+├── start.ps1                # One-click PowerShell launcher script
+├── Plan.md                  # Project plan & architecture specification
 └── README.md                # This file
 ```
 
@@ -147,7 +151,36 @@ git clone https://github.com/your-username/Intrustion-Detection-System.git
 cd Intrustion-Detection-System
 ```
 
-### 2. Set Up the Backend
+### 2. One-Click Launch (Recommended)
+
+Run the PowerShell launcher script — it handles everything automatically:
+
+```powershell
+.\start.ps1
+```
+
+This will:
+- ✅ Create a Python virtual environment (if it doesn't exist)
+- ✅ Install all Python dependencies from `requirements.txt`
+- ✅ Install frontend Node.js packages
+- ✅ Start the FastAPI backend on port **8000**
+- ✅ Start the Vite frontend on port **5173**
+- ✅ Clean up both servers when you press `Ctrl+C`
+
+> 💡 On subsequent runs, use `.\start.ps1 -SkipInstall` to skip dependency installation and start faster.
+
+> ⚠️ If you get a script execution policy error, run this first:
+> ```powershell
+> Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+> ```
+
+---
+
+### Alternative: Manual Setup
+
+If you prefer to set things up step by step:
+
+#### 2a. Set Up the Backend
 
 ```bash
 # Create a Python virtual environment
@@ -160,12 +193,12 @@ python -m venv .venv
 .venv\Scripts\activate.bat
 
 # Install Python dependencies
-pip install -r backend/requirements.txt
+pip install -r requirements.txt
 ```
 
 > ℹ️ The first run will automatically download the `yolov8n.pt` model file (~6 MB). This is a one-time download.
 
-### 3. Set Up the Frontend
+#### 2b. Set Up the Frontend
 
 ```bash
 cd frontend
@@ -173,7 +206,7 @@ npm install
 cd ..
 ```
 
-### 4. Start Both Servers
+#### 2c. Start Both Servers
 
 Open **two separate terminal windows**, both from the project root:
 
@@ -192,7 +225,7 @@ cd frontend
 npm run dev
 ```
 
-### 5. Open the Dashboard
+### 3. Open the Dashboard
 
 Navigate to **[http://localhost:5173](http://localhost:5173)** in your browser.
 
