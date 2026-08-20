@@ -8,9 +8,42 @@
     margin: 0;
     overflow-x: hidden;
   }
+
+  /* Apply JetBrains Mono to all monospace contexts */
+  .font-mono, code, pre, [class*="font-mono"] {
+    font-family: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;
+  }
 }
 
-/* Custom Webkit scrollbar for sleek console look */
+/* ============================
+   Animated Background Gradient
+   ============================ */
+@keyframes bg-drift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: 
+    radial-gradient(ellipse 80% 60% at 10% 20%, rgba(56, 89, 160, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 90% 80%, rgba(139, 92, 246, 0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 50% 50%, rgba(14, 165, 233, 0.04) 0%, transparent 70%);
+  background-size: 200% 200%;
+  animation: bg-drift 25s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* ========================
+   Custom Webkit Scrollbar
+   ======================== */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -29,7 +62,9 @@
   background: #3b82f6;
 }
 
-/* Threat alert pulse animations */
+/* ==========================
+   Threat Alert Pulse Animation
+   ========================== */
 @keyframes threat-pulse {
   0%, 100% {
     box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
@@ -45,7 +80,9 @@
   animation: threat-pulse 1.5s infinite;
 }
 
-/* Glassmorphism styling */
+/* ========================
+   Glassmorphism Panels
+   ======================== */
 .glass-panel {
   background: rgba(15, 23, 42, 0.65);
   backdrop-filter: blur(12px);
@@ -57,9 +94,17 @@
   background: rgba(20, 30, 54, 0.45);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Status indicator pulse */
+.glass-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+/* ================================
+   Status Indicator Glow Animations
+   ================================ */
 @keyframes status-glow-green {
   0%, 100% {
     opacity: 0.6;
@@ -90,4 +135,75 @@
 
 .status-active-red {
   animation: status-glow-red 2s infinite ease-in-out;
+}
+
+/* ==============================
+   Card Entrance Fade-In Animation
+   ============================== */
+@keyframes card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.glass-card,
+.glass-panel {
+  animation: card-enter 0.5s ease-out both;
+}
+
+/* Stagger children */
+section > .glass-card:nth-child(1),
+section > .glass-panel:nth-child(1) { animation-delay: 0.05s; }
+section > .glass-card:nth-child(2),
+section > .glass-panel:nth-child(2) { animation-delay: 0.12s; }
+section > .glass-card:nth-child(3),
+section > .glass-panel:nth-child(3) { animation-delay: 0.19s; }
+
+/* =========================
+   Connection Status Dot Pulse
+   ========================= */
+@keyframes dot-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.bg-green-500 {
+  animation: dot-pulse 2s ease-in-out infinite;
+}
+
+/* =============================
+   Table Row Entrance Animation
+   ============================= */
+@keyframes row-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+tbody tr {
+  animation: row-slide-in 0.3s ease-out both;
+}
+
+/* ========================
+   Header Subtle Bottom Glow
+   ======================== */
+header {
+  box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.03), 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* ======================
+   Footer Subtle Styling
+   ====================== */
+footer {
+  background: rgba(15, 23, 42, 0.3);
 }
