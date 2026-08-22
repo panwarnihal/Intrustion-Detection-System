@@ -1,0 +1,33 @@
+# Virtual Environment
+.venv/
+venv/
+env/
+
+# Python & Pycache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Database
+*.db
+backend/detection_system.db
+
+# Machine Learning Models / Weights
+*.pt
+yolov8n.pt
+
+# Node / Frontend
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+
+# Logs & OS files
+*.log
+.DS_Store
+Thumbs.db
+
+# IDEs & Editors
+.idea/
+.vscode/
